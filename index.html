@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Events Practice Lab</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Iconify — icon library used for hamburger / chevron icons -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/fonts.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <!-- Site header (outside main) -->
+    <header class="site-header">
+      <span class="logo">JS Lab</span>
+
+      <nav>
+        <!-- Challenge 1: this button toggles the mobile nav -->
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <iconify-icon icon="mdi:menu"></iconify-icon>
+        </button>
+
+        <ul class="nav-menu" role="list">
+          <li><a href="#nav-challenge">Challenge 1 — Nav</a></li>
+          <li><a href="#carousel-challenge">Challenge 2 — Carousel</a></li>
+          <li><a href="#form-challenge">Challenge 3 — Form</a></li>
+          <li><a href="#filter-challenge">Challenge 4 — Filter</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <header class="page-header">
+        <h1>JavaScript Events Lab</h1>
+        <p>Four challenges. One page. Pure HTML, CSS, and JS.</p>
+      </header>
+
+      <!-- Challenge 1: Nav Toggle -->
+      <section id="nav-challenge" class="section">
+        <h2 class="section-title">Challenge 1 — Mobile Nav Toggle</h2>
+        <p>
+          The hamburger button in the site header above is wired up in the HTML
+          and CSS — but nothing happens yet. Open <code>script.js</code> and
+          follow the TODOs to make it work.
+        </p>
+        <ul>
+          <li>Clicking the button should open and close the menu.</li>
+          <li>Clicking anywhere outside the menu should also close it.</li>
+          <li>Resizing to desktop should reset any open mobile state.</li>
+        </ul>
+      </section>
+
+      <!-- Challenge 2: Image Carousel -->
+      <section id="carousel-challenge" class="section">
+        <h2 class="section-title">Challenge 2 — Image Carousel</h2>
+        <p>
+          Below is the carousel structure. The slides and buttons are in place.
+          Implement the JS to make it functional.
+        </p>
+
+        <div class="carousel" aria-label="Image carousel">
+          <button class="carousel-btn prev" aria-label="Previous slide">
+            <iconify-icon icon="mdi:chevron-left"></iconify-icon>
+          </button>
+
+          <div class="carousel-track">
+            <div class="carousel-slide">
+              <img src="assets/images/slide-1.jpg" alt="Two sparrows perched on a branch" />
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/images/slide-2.jpg" alt="Seagulls perched on a railing" />
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/images/slide-3.jpg" alt="Red-winged blackbird on a branch" />
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/images/slide-4.jpg" alt="Portrait of a grey crowned crane" />
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/images/slide-5.jpg" alt="Black crow on a grass field" />
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/images/slide-6.jpg" alt="Black bird on a tree branch" />
+            </div>
+          </div>
+
+          <button class="carousel-btn next" aria-label="Next slide">
+            <iconify-icon icon="mdi:chevron-right"></iconify-icon>
+          </button>
+
+          <!-- Extra Challenge: JS will inject dot buttons in here -->
+          <div class="carousel-dots" aria-label="Slide indicators"></div>
+        </div>
+      </section>
+
+      <!-- Challenge 3: Username Validation -->
+      <section id="form-challenge" class="section">
+        <h2 class="section-title">Challenge 3 — Username Validation</h2>
+        <p>
+          Submit the form below. The JS should validate the username before
+          accepting it. Read the TODOs in <code>script.js</code> for the rules.
+        </p>
+
+        <form id="username-form" novalidate>
+          <div class="form-group">
+            <label for="username-input">Username</label>
+            <input
+              type="text"
+              id="username-input"
+              name="username"
+              placeholder="e.g. mary_poppins"
+              autocomplete="off"
+            />
+            <span id="username-validation" class="validation-message" role="alert"></span>
+          </div>
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </section>
+
+      <!-- Challenge 4: Character Filter & Sort -->
+      <section id="filter-challenge" class="section">
+        <h2 class="section-title">Challenge 4 — Character Filter &amp; Sort</h2>
+        <p>
+          The character data lives in <code>characters.js</code>. Your job is to
+          render the cards and make the filters and sort control work.
+        </p>
+
+        <div class="form-section">
+          <div class="form-group">
+            <label>Filter by attribute</label>
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" class="filter-checkbox" value="magical" />
+                Magical
+              </label>
+              <label>
+                <input type="checkbox" class="filter-checkbox" value="cheerful" />
+                Cheerful
+              </label>
+              <label>
+                <input type="checkbox" class="filter-checkbox" value="strict" />
+                Strict
+              </label>
+              <label>
+                <input type="checkbox" class="filter-checkbox" value="nurturing" />
+                Nurturing
+              </label>
+              <label>
+                <input type="checkbox" class="filter-checkbox" value="adult" />
+                Adult
+              </label>
+              <label>
+                <input type="checkbox" class="filter-checkbox" value="child" />
+                Child
+              </label>
+              <label>
+                <input type="checkbox" class="filter-checkbox" value="comedic" />
+                Comedic
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sort-select">Sort by</label>
+            <select id="sort-select">
+              <option value="name-asc">Name A–Z</option>
+              <option value="name-desc">Name Z–A</option>
+              <option value="age-asc">Age (youngest first)</option>
+              <option value="age-desc">Age (oldest first)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- JS renders cards here -->
+        <div id="character-grid" class="character-grid"></div>
+      </section>
+    </main>
+
+    <!-- Site footer (outside main) -->
+    <footer class="site-footer">
+      <p>&copy; 2026 JS Events Lab &mdash; Web 1</p>
+    </footer>
+
+    <!-- Script loaded as a module so we can use import/export -->
+    <script type="module" src="assets/js/script.js"></script>
+  </body>
+</html>
