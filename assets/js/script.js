@@ -28,11 +28,52 @@ const dotsContainer = document.querySelector(".carousel-dots");
 const usernameForm = document.querySelector("#username-form");
 const usernameInput = document.querySelector("#username-input");
 const validationMsg = document.querySelector("#username-validation");
-
 // Rules: no leading numbers, no spaces, no special characters (@ # $ % & * ! ?)
 // TODO: Listen for the 'submit' event — call event.preventDefault()
 // TODO: Validate the input value and update validationMsg with an error or success class
 // Extra: replace spaces with hyphens before validating and show the corrected value
+usernameForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  // access the text information trim space on the ends
+  const inputText = usernameInput.value.trim();
+
+  // replace all spaces with _  **USE CASE ISSUE: What if they put in lots of spaces in a row ?? TODO SOLVE IN REFACTOR
+  let outputText = inputText.replaceAll(" ", "_");
+  usernameInput.value = outputText;
+  // access input field and show the updated name accordingly
+
+  // EVALUATE CONDITIONS
+  // error if starting with a number
+  const startsWithNumber = /^[0-9]/.test(outputText);
+  if (startsWithNumber) {
+    // Show validator message
+    showValidation("Username cannot start with a number", "error");
+    return;
+  }
+
+  // error for special characters
+  const hasSpecialChars = /[@#$%&*!?]/.test(outputText);
+  if (hasSpecialChars) {
+    showValidation("Username cannot contain special chars", "error");
+    return;
+  }
+  // follow up space error (in case something got past for whatever reason)
+  const hasSpaces = /\s/.test(outputText);
+  if (hasSpaces) {
+    showValidation("Username cannot contain spaces", "error");
+    return;
+  }
+
+  // show validation message
+  showValidation(`Username: ${outputText} is valid!`, "success");
+});
+
+// helper function to show message
+function showValidation(message, type) {
+  validationMsg.textContent = message;
+  validationMsg.classList.remove("error", "success");
+  validationMsg.classList.add(type);
+}
 
 // -- Challenge 4: Character Filter & Sort --
 
