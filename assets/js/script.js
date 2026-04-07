@@ -75,6 +75,18 @@ const validationMsg = document.querySelector("#username-validation");
 // TODO: Listen for the 'submit' event — call event.preventDefault()
 // TODO: Validate the input value and update validationMsg with an error or success class
 // Extra: replace spaces with hyphens before validating and show the corrected value
+
+const hasNoSpecialChars = (str) => /^[a-zA-Z0-9_-]+$/.test(str);
+
+const validateUsername = (username) => {
+  if (!hasNoSpecialChars(username))
+    return {
+      valid: false,
+      reason: "username cannot contain special characters",
+    };
+  return { valid: true, reason: null };
+};
+
 usernameForm.addEventListener("submit", (event) => {
   event.preventDefault();
   // access the text information trim space on the ends
@@ -83,23 +95,18 @@ usernameForm.addEventListener("submit", (event) => {
   // replace all spaces with _  **USE CASE ISSUE: What if they put in lots of spaces in a row ?? TODO SOLVE IN REFACTOR
   let outputText = inputText.replaceAll(" ", "_");
   usernameInput.value = outputText;
-  // access input field and show the updated name accordingly
 
+  // access input field and show the updated name accordingly
   // EVALUATE CONDITIONS
   // error if starting with a number
-  const startsWithNumber = /^[0-9]/.test(outputText);
   if (startsWithNumber) {
     // Show validator message
     showValidation("Username cannot start with a number", "error");
     return;
   }
 
-  // error for special characters
-  const hasSpecialChars = /[@#$%&*!?]/.test(outputText);
-  if (hasSpecialChars) {
-    showValidation("Username cannot contain special chars", "error");
-    return;
-  }
+  // get result of running tests
+  // if tests don't pass, send error info accordingly
   // follow up space error (in case something got past for whatever reason)
   const hasSpaces = /\s/.test(outputText);
   if (hasSpaces) {
@@ -107,6 +114,12 @@ usernameForm.addEventListener("submit", (event) => {
     return;
   }
 
+  const result = validateUsername(outputText);
+
+  if (!result.valid) {
+    showValidation(result.reason, "error");
+    return;
+  }
   // show validation message
   showValidation(`Username: ${outputText} is valid!`, "success");
 });
