@@ -19,10 +19,53 @@ const nextBtn = document.querySelector(".carousel-btn.next");
 const dotsContainer = document.querySelector(".carousel-dots");
 
 // TODO: Track the current slide index (start at 0)
+let currentIndex = 0;
 // TODO: Write showSlide(index) — move the track with translateX, keep index in bounds
+const showSlide = (index) => {
+  const previousIndex = currentIndex;
+  currentIndex = ((index % slides.length) + slides.length) % slides.length;
+  const isWrapping =
+    (previousIndex === slides.length - 1 && currentIndex === 0) ||
+    (previousIndex === 0 && currentIndex === slides.length - 1);
+  if (isWrapping) {
+    carouselTrack.style.transition = "none";
+  }
+  carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+  if (isWrapping) {
+    carouselTrack.offsetHeight;
+    carouselTrack.style.transition = "";
+  }
+  // dots indicator
+  updateDots();
+};
 // TODO: Wire up prevBtn and nextBtn clicks to call showSlide with the updated index
+prevBtn.addEventListener("click", () => {
+  showSlide(currentIndex - 1);
+});
+nextBtn.addEventListener("click", () => {
+  showSlide(currentIndex + 1);
+});
 // Extra: generate a dot button per slide inside dotsContainer, keep the active dot in sync
-
+slides.forEach((slide, index) => {
+  const dot = document.createElement("button");
+  dot.classList.add("carousel-dot");
+  dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
+  dot.addEventListener("click", () => {
+    showSlide(index);
+  });
+  dotsContainer.appendChild(dot);
+});
+const updateDots = () => {
+  const dots = dotsContainer.querySelectorAll(".carousel-dot");
+  dots.forEach((dot, index) => {
+    if (index === currentIndex) {
+      dot.classList.add("active");
+    } else {
+      dot.classList.remove("active");
+    }
+  });
+};
+updateDots();
 // -- Challenge 3: Username Validation --
 
 const usernameForm = document.querySelector("#username-form");
