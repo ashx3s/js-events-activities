@@ -19,10 +19,55 @@ const nextBtn = document.querySelector(".carousel-btn.next");
 const dotsContainer = document.querySelector(".carousel-dots");
 
 // TODO: Track the current slide index (start at 0)
+let currentIndex = 0;
 // TODO: Write showSlide(index) — move the track with translateX, keep index in bounds
-// TODO: Wire up prevBtn and nextBtn clicks to call showSlide with the updated index
-// Extra: generate a dot button per slide inside dotsContainer, keep the active dot in sync
+function showSlide(index) {
+  const previousIndex = currentIndex;
+  // TODO: Explore this logic with console logs on event firing
+  currentIndex = ((index % slides.length) + slides.length) % slides.length;
+  const isWrapping =
+    (previousIndex === slides.length - 1 && currentIndex === 0) ||
+    (previousIndex === 0 && currentIndex === slides.length - 1);
+  // remove transition on flip from end to start or vice versa
+  if (isWrapping) {
+    carouselTrack.style.transition = "none";
+  }
+  // Where the magic happens
+  carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+  // disable transition after the movement has happened
+  if (isWrapping) {
+    carouselTrack.offsetHeight;
+    carouselTrack.style.transition = "";
+  }
+  // update dots on click and load
+  updateDots();
+}
 
+prevBtn.addEventListener("click", () => {
+  showSlide(currentIndex - 1);
+});
+nextBtn.addEventListener("click", () => {
+  showSlide(currentIndex + 1);
+});
+slides.forEach((slide, index) => {
+  const dot = document.createElement("button");
+  dot.classList.add("carousel-dot");
+  dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
+  dot.addEventListener("click", () => {
+    showSlide(index);
+  });
+  dotsContainer.appendChild(dot);
+});
+
+const updateDots = () => {
+  const dots = dotsContainer.querySelectorAll(".carousel-dot");
+  dots.forEach((dot, index) =>
+    index === currentIndex
+      ? dot.classList.add("active")
+      : dot.classList.remove("active"),
+  );
+};
+updateDots();
 // -- Challenge 3: Username Validation --
 
 const usernameForm = document.querySelector("#username-form");
